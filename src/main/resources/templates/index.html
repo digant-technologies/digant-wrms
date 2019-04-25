@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html  lang="en"
+	xmlns:th="http://www.thymeleaf.org" >
+   <head>
+      <title>Digant Technologies</title>
+             
+       <!-- Font Awesome -->
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+				<!-- Bootstrap core CSS -->
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		      <!-- Material Design Bootstrap -->
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/css/mdb.min.css" rel="stylesheet">
+		    <link rel="stylesheet"
+				href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.6/angular-material.min.css" />
+			<link rel="stylesheet"
+				href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+			<link rel="stylesheet"
+				href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+			<link rel="stylesheet"
+				href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+				
+			<!-- MANUAL CSS -->
+			<link rel="stylesheet" type="text/css" href="../static/css/wrms.css" th:href="@{/css/wrms.css}" />
+			
+		    <!-- JQuery -->
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<!-- Bootstrap tooltips -->
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+			<!-- Bootstrap core JavaScript -->
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<!-- MDB core JavaScript -->
+		<!-- 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.7/js/mdb.min.js"></script>  
+		 -->       
+			<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+		    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+       
+       		<script src="https://www.amcharts.com/lib/4/core.js"></script>
+			<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+			<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+       
+      </head>
+	   <body data-ng-app="digantApp" data-ng-controller="wrmsController" layout="column" >
+	   
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #007bff!important; font-weight:bolder;">
+				  <a class="navbar-brand" href="#">Digant Technologies</a>
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+			</nav>
+	   
+	     <md-tabs  flex layout="column" style="background-color: lavender;" layout-fill>
+	   		<md-tab label="Home" data-ng-init="fetchDeviceInfoData()">
+   			<md-content flex="" layout-fill="">
+   			 <!-- <div id="container" style="width: 400px; height: 120px;"></div>  -->-->
+   			</md-content>
+   		</md-tab>
+   		<!--  <md-tab label="Home" data-ng-init="fetchDeviceInfoData()">
+   			<md-content flex="" layout-fill="">
+   			<div id="chartdiv"></div>
+   			</md-content>
+   		</md-tab>  -->
+	   			
+	   		
+	   		<md-tab label="summary" flex layout="column">
+	   			<md-tabs flex="" layout-fill="" style="background-color: aliceblue;">
+	   				<md-tab label="Alarm" data-ng-init="fetchAlarmData()" >
+	   					<md-content flex="" layout-fill="">
+	   						<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">ALARM TABLE</div>
+	   						 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
+      							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+   							 </div>
+   							 <div class='center' data-ng-if="isLoading">
+  								<p class="awesome">Please wait loading...</p>
+						     </div>
+						     
+						     	
+					   			 <table id="alarmTable" data-ng-if="!isLoading" class="table table-striped table-bordered" style="background-color: rgba(189, 239, 191, 0.26);" cellspacing="0" width="50%">
+										<thead style="background-color: #14688aa6; color: aliceblue;">
+											<tr>
+												<th class="th-sm" title="IMEI Number">IMEI</th>
+												<th class="th-sm" title="R PHASE">RP</th>
+												<th class="th-sm" title="Y PHASE">YP</th>
+												<th class="th-sm" title="B PHASE">BP</th>
+												<th class="th-sm" title="DG ON">DGO</th>
+												<th class="th-sm" title="DG ON LOAD">DGOL</th>
+												<th class="th-sm" title="DG BATTERY LOW">DGBL</th>
+												<th class="th-sm" title="LOW FUEL">LF</th>
+												<th class="th-sm" title="NO FUEL">NF</th>
+												<th class="th-sm" title="DOOR OPEN">DO</th>
+												<th class="th-sm" title="FIRE AND SMOKE">FS</th>
+												<th class="th-sm" title="SPARE 1">DI11</th>
+												<th class="th-sm" title="SPARE 2">DI12</th>
+												<th class="th-sm" title="SPARE 3">DI13</th>
+												<th class="th-sm" title="SPARE 4">DI14</th>
+												<th class="th-sm" title="SPARE 5">DI15</th>
+												<th class="th-sm" title="SPARE 6">DI16</th>
+												<th class="th-sm" title="TAMPER">TAMPER</th>
+												<th class="th-sm" title="DATA TIME">DATA TIME</th>
+												<th class="th-sm" title="INSERT TIME">INSERT TIME</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="alarm in alarmData">
+												<td>{{alarm.imei}}</td>								
+ 												<td data-ng-if="alarm.di01"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di01"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di02"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di02"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di03"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di03"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di04"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di04"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di05"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di05"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di06"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di06"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di07"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di07"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di08"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di08"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di09"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di09"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di10"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di10"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di11"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di11"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di12"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di12"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di13"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di13"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di14"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di14"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di15"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di15"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.di16"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.di16"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="alarm.tamper"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!alarm.tamper"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+												<td>{{alarm.dataTime}}</td>
+												<td>{{alarm.insertTime}}</td>
+											</tr>
+										</tbody>
+								 </table>
+								 
+					    </md-content>
+	   				</md-tab>
+	   				<md-tab label="DC Load" data-ng-init="fetchDcLoadData()">
+		   				<md-content flex="" layout-fill="">
+			   				<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">DC LOAD TABLE</div>
+			   				 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
+      							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+   							 </div>
+   							 <div class='center' data-ng-if="isLoading">
+  								<p class="awesome">Please wait loading...</p>
+						     </div>   							 
+			   				 <table id="dcloadTable" data-ng-if="!isLoading" class="table table-striped table-bordered" style="background-color: rgba(189, 239, 191, 0.26);" cellspacing="0" width="100%">
+								  <thead style="background-color: #14688aa6; color: aliceblue;">
+								    <tr>
+								      <th class="th-sm">IMEI</th>
+								      <th class="th-sm" title="	DC LOAD 1">Ld1</th>
+								      <th class="th-sm" title=" DC LOAD 2">LD2</th>
+								      <th class="th-sm" title=" DC LOAD 3">LD3</th>
+								      <th class="th-sm" title=" DC LOAD 4">LD4</th>
+								      <th class="th-sm" title=" VOLTAGE">VOLT</th>
+								      <th class="th-sm" title=" DATA TIME">DATA TIME</th>
+								      <th class="th-sm" title=" INSERT TIME">INSERT TIME</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr data-ng-repeat="dcLoad in dcLoadData">
+								      <td>{{dcLoad.imei}}</td>
+								      <td>{{dcLoad.load1}}</td>
+								      <td>{{dcLoad.load2}}</td>
+								      <td>{{dcLoad.load3}}</td>
+								      <td>{{dcLoad.load4}}</td>
+								      <td>{{dcLoad.voltage}}</td>
+								      <td>{{dcLoad.dataTime}}</td>
+								      <td>{{dcLoad.insertTime}}</td>
+								    </tr>
+			
+								  </tbody>
+								  
+							</table>
+						  </md-content>
+	   				</md-tab>
+	   				<md-tab label="Temperature" data-ng-init="fetchTemperatureData()">
+			   			<md-content flex="" layout-fill="">
+				   			<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">TEMPERATURE TABLE</div>
+				   			 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
+      							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+   							 </div>
+   							 <div class='center' data-ng-if="isLoading">
+  								<p class="awesome">Please wait loading...</p>
+						     </div>   							 
+				   			 <table id="tempTable" data-ng-if="!isLoading" class="table table-striped table-bordered" style="background-color: rgba(189, 239, 191, 0.26);" cellspacing="0" width="100%">
+								  <thead style="background-color: #14688aa6; color: aliceblue;">
+								    <tr>
+								      <th class="th-sm" title="IMEI NUMBER">IMEI</th>
+								      <th class="th-sm" title="ROOM TEMP IN DegreeC">ROOM TEMP</th>
+								      <th class="th-sm" title="DATA TIME">DATA TIME</th>
+								      <th class="th-sm" title="INSERT TIME">INSERT TIME</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr data-ng-repeat="temp in temperatureData">
+								      <td>{{temp.imei}}</td>
+								      <td>{{temp.degreeC}}</td>
+								      <td>{{temp.dataTime}}</td>
+								      <td>{{temp.insertTime}}</td>
+								   	 </tr>
+								    </tbody>
+								  </table>					  
+			   			</md-content>
+	   				</md-tab>
+	   			</md-tabs>
+	   			 <!--  -->
+	   		</md-tab>
+	   </md-tabs>
+	  
+			<!-- <script
+				src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.6/angular-material.min.js"></script>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+		  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+		  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+				
+				
+		    <script type="text/javascript" src="../static/js/app.js" th:src="@{js/app.js}"></script>
+		      
+	 
+	   </body>
+</html>

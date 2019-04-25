@@ -1,0 +1,46 @@
+<md-tabs >
+   	<md-content>
+   		<md-tab label="Home" >
+   			<md-content>
+   			 <table id="wrmsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				  <thead>
+				    <tr>
+				      <th class="th-sm">imei
+				      </th>
+				      <th class="th-sm">Position
+				      </th>
+				      <th class="th-sm">sim
+				      </th>
+				      <th class="th-sm">temperature
+				      </th>
+				      <th class="th-sm">data time
+				      </th>
+				      <th class="th-sm">voltage
+				      </th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr data-ng-repeat="deviceInfo in deviceInfoData">
+				      <td>11 :{{deviceInfo.imei}}</td>
+				      <td>111 :{{deviceInfo.imei}}</td>
+				      <td>1111 :{{deviceInfo.imei}}</td>
+				      <td>1111 :{{deviceInfo.imei}}</td>
+				      <td>11 :{{deviceInfo.imei}}</td>
+				      <td>111 :{{deviceInfo.imei}}</td>
+				    </tr>
+				    
+				    </tbody></table>
+				    
+				   <h3>{{deviceInfo.imei}}</h3>
+   			</md-content>
+   		</md-tab>
+   		<md-tab label="summary">
+   			<md-content>
+   			
+   			</md-content>
+   		</md-tab>
+   	</md-content>
+   </md-tabs>
+
+
+
