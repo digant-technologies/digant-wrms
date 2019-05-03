@@ -22,6 +22,13 @@
 			<!-- MANUAL CSS -->
 			<link rel="stylesheet" type="text/css" href="../static/css/wrms.css" th:href="@{/css/wrms.css}" />
 			
+			<style type="text/css">
+				[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak,
+					.x-ng-cloak {
+					display: none !important;
+				}
+			</style>
+			
 		    <!-- JQuery -->
 			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 			<!-- Bootstrap tooltips -->
@@ -49,11 +56,11 @@
 			</nav>
 	   
 	     <md-tabs  flex layout="column" style="background-color: lavender;" layout-fill>
-	   		<md-tab label="Home" data-ng-init="fetchDeviceInfoData()">
-   			<md-content flex="" layout-fill="">
-   			 <!-- <div id="container" style="width: 400px; height: 120px;"></div>  -->-->
-   			</md-content>
-   		</md-tab>
+	   		<md-tab label="Home" data-ng-init="fetchDeviceInfoData(); fetchSiteIds();">
+	   			<md-content class="md-padding" flex="" layout-fill="">
+	   			 <!-- <div id="container" style="width: 400px; height: 120px;"></div>  -->
+				</md-content>
+   			</md-tab>
    		<!--  <md-tab label="Home" data-ng-init="fetchDeviceInfoData()">
    			<md-content flex="" layout-fill="">
    			<div id="chartdiv"></div>
@@ -64,7 +71,7 @@
 	   		<md-tab label="summary" flex layout="column">
 	   			<md-tabs flex="" layout-fill="" style="background-color: aliceblue;">
 	   				<md-tab label="Alarm" data-ng-init="fetchAlarmData()" >
-	   					<md-content flex="" layout-fill="">
+	   					<md-content class="md-padding" flex="" layout-fill="">
 	   						<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">ALARM TABLE</div>
 	   						 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
       							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -145,7 +152,7 @@
 					    </md-content>
 	   				</md-tab>
 	   				<md-tab label="DC Load" data-ng-init="fetchDcLoadData()">
-		   				<md-content flex="" layout-fill="">
+		   				<md-content class="md-padding" flex="" layout-fill="">
 			   				<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">DC LOAD TABLE</div>
 			   				 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
       							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -184,7 +191,7 @@
 						  </md-content>
 	   				</md-tab>
 	   				<md-tab label="Temperature" data-ng-init="fetchTemperatureData()">
-			   			<md-content flex="" layout-fill="">
+			   			<md-content class="md-padding" flex="" layout-fill="">
 				   			<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">TEMPERATURE TABLE</div>
 				   			 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
       							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -215,6 +222,73 @@
 	   			</md-tabs>
 	   			 <!--  -->
 	   		</md-tab>
+	   		<md-tab label="Configuration" data-ng-init="fetchDeviceInfoData(); fetchSiteIds();">
+	   			<md-content class="md-padding" flex="" layout-fill="">
+		   			<md-card>
+		   				<md-toolbar class="toolbarText ">IMEI Configuration</md-toolbar>
+					   	 <md-card-content class="md-padding">
+		     				 <div layout="row">
+								    <md-input-container>
+							          <label>IMEI NUMBER</label>
+							          <md-select data-ng-model="deviceImei">
+							            <md-option data-ng-repeat="device in deviceInfoData" data-ng-value="device.imei">
+							              {{device.imei}}
+							            </md-option>
+							          </md-select>
+							        </md-input-container>
+							        <md-input-container class="imeiConfMargin">
+							          <label>SITE ID</label>
+							          <input data-ng-model="siteId">
+							        </md-input-container >
+							        <md-input-container class="imeiConfMargin" >
+							          <label>SITE NAME</label>
+							          <input data-ng-model="sitename" >
+							        </md-input-container >
+							        <md-input-container class="imeiConfMargin">
+							          <label>CIRCLE NAME</label>
+							          <input data-ng-model="circleName" >
+							        </md-input-container>				        
+				      	 	 </div>
+				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateImeiConfig(data)" >Save</md-button>
+				        </md-card-content>
+					 </md-card>
+					 
+					 <md-card style="margin-top: 2%;">
+		   				<md-toolbar class="toolbarText ">Alarm Configuration</md-toolbar>
+		   			
+					    <md-card-content class="md-padding">
+		     				 <div layout="row">
+							    <md-input-container>
+						          <label>SITE IDS</label>
+						          <md-select data-ng-model="siteIds">
+						            <md-option data-ng-repeat="siteIds in siteIdsData" data-ng-value="siteIds.siteId">
+						              {{siteIds.siteId}}
+						            </md-option>
+						          </md-select>
+						        </md-input-container>
+						        <md-input-container class="imeiConfMargin">
+						        <label>ALARMS</label>
+						         <md-select data-ng-model="ALARM"  >
+							          <md-option value="DI09">DI09</md-option>
+							          <md-option value="DI10">DI10</md-option>
+							          <md-option value="DI11">DI11</md-option>
+							          <md-option value="DI12">DI12</md-option>
+							          <md-option value="DI13">DI13</md-option>
+							          <md-option value="DI14">DI14</md-option>
+							          <md-option value="DI15">DI15</md-option>
+							          <md-option value="DI16">DI16</md-option>
+						        </md-select>
+						        </md-input-container >
+						        <md-input-container class="imeiConfMargin" >
+						          <label>USER DEFINABLE</label>
+						          <input data-ng-model="sitename" data-ng-change="siteNameFunction(sitename)">
+						        </md-input-container >
+				      	  </div>
+				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateImeiConfig(data)" >Save</md-button>
+				        </md-card-content>
+					 </md-card>
+				</md-content>
+   		</md-tab>
 	   </md-tabs>
 	  
 			<!-- <script

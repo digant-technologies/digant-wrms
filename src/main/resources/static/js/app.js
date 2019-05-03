@@ -14,6 +14,9 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 					$scope.finalDegree = new Array();
 					$scope.subArrray = new Array();
 					$scope.amChartsMainArray = new Array(); 
+					$scope.deviceImei = '';
+					$scope.siteIds = '';
+					
 					
 					
 					$scope.fetchAlarmData = function() {
@@ -25,8 +28,8 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 							$scope.isLoading = false;
 							$(document).ready(function() {
 								
-//									 $('#alarmTable').DataTable( {    
-										 var table = $('#alarmTable').DataTable( {       
+									 $('#alarmTable').DataTable( {    
+										/* var table = $('#alarmTable').DataTable( {       
 										        scrollX:        true,
 										        scrollCollapse: true,
 										        autoWidth:         true,  
@@ -34,7 +37,7 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 										         "autoWidth": false,
 										         "columnDefs": [
 										        	    { "width": "100%", "targets": 1 }
-										        	  ]
+										        	  ]*/
 
 										    } );
 										
@@ -81,14 +84,7 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 								$scope.dateValue = $scope.temperatureData[i].insertTime;
 								$scope.degreeCValue = $scope.temperatureData[i].degreeC;
 								$scope.imei = $scope.temperatureData[i].imei;
-								/*$scope.sampleImei.push($scope.dateValue);
-								$scope.tempData['date'] = $scope.sampleImei;
-								$scope.degreeCData.push($scope.degreeCValue);
-								$scope.tempData['degreeC'] = $scope.degreeCData;
-								
-								$scope.sampleImei.push($scope.dateValue);
-								$scope.degreeCData.push($scope.degreeCValue);*/
-									
+				
 								$scope.main = [$scope.dateValue,$scope.degreeCValue,$scope.imei];
 							
 								$scope.amMain = {}
@@ -109,13 +105,7 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 								});					
 						});
 							
-							
-							
-							
-							//drawChart($scope.mainArrray);
-							
-							
-							
+	
 							google.charts.load('current', {packages: ['corechart','bar']}); 
 					         
 							function drawChart(data) {
@@ -246,20 +236,44 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 				
 							$scope.deviceInfoData = response.data;
 							
-							/*
-							 * for(var i = 0; i < $scope.deviceInfoData.length; i++){
-							 * $scope.deviceInfoData[i].signal = $scope.sampleImei;
-							 *  // $scope.sampleImei.push($scope.imei);
-							 *  }
-							 */
 						}, function(error) {
 							// $errHandlingService.checkStatusCode(error.status);
 							console.log("error in device info")
 						})
 					}
-				
+			
+					$scope.updateImeiConfig = function(){
+						$http({
+							method : 'POST',
+							url : '/digant/wrms/imei/config',
+							data: {
+								"imei" : $scope.deviceImei,
+								"siteId" : $scope.siteId,
+								"siteName" : $scope.sitename,
+								"circleName" :$scope.circleName
+								}
+						}).then(function(response) { 
+							$scope.imeiConfigData = response.data;
+							
+							$scope.selectedImei = window.sessionStorage
+							.getItem('imei');
+							
+						}, function(error) {
+							console.log("error in imei config");
+						})
+					}
 					
-					
+					$scope.fetchSiteIds = function(){
+						$http({
+							method : 'GET',
+							url : '/digant/wrms/fetch/siteId'
+						}).then(function(response) {
+							$scope.siteIdsData = response.data;
+							
+						}, function(error) {
+							console.log("error in imei config");
+						})
+					}
 				
 					
 					
@@ -269,36 +283,6 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 			         
 					
 				
-					// $( "#tab" ).load( "/greeting.html" );
-				
-					/*
-					 * function load_home() { document.getElementById("tab").innerHTML='<object
-					 * type="text/html" data="greeting.html" ></object>'; }
-					 */
-				
-					/*
-					 * google.charts.load('current', {'packages':['gauge']});
-					 * google.charts.setOnLoadCallback(drawChart);
-					 * 
-					 * function drawChart() {
-					 * 
-					 * var data = google.visualization.arrayToDataTable([ ['Label', 'Value'],
-					 * ['Memory', $scope.sampleImei], ['CPU', 55], ['Network', 68] ]);
-					 * 
-					 * var options = { width: 400, height: 120, redFrom: 90, redTo: 100,
-					 * yellowFrom:75, yellowTo: 90, minorTicks: 5 };
-					 * 
-					 * var chart = new
-					 * google.visualization.Gauge(document.getElementById('chart_div'));
-					 * 
-					 * chart.draw(data, options);
-					 * 
-					 * setInterval(function() { data.setValue(0, 1, 40 + Math.round(60 *
-					 * Math.random())); chart.draw(data, options); }, 13000);
-					 * setInterval(function() { data.setValue(1, 1, 40 + Math.round(60 *
-					 * Math.random())); chart.draw(data, options); }, 5000);
-					 * setInterval(function() { data.setValue(2, 1, 60 + Math.round(20 *
-					 * Math.random())); chart.draw(data, options); }, 26000); }
-					 */
+					
 
 });

@@ -1,72 +1,43 @@
-/* table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-  bottom: .5em;
-} */
-
-/* .dataTables_filter {
-   width: 50%;
-   float: right;
-   text-align: right;
-} */
-
-
-
-#chartdiv {
-  width: 100%;
-  height: 500px;
-}
-
+	#chartdiv {
+		width: 100%;
+		height: 500px;
+	}
+	
 	.redImgCenter {
-	  display: block;
-	  margin-left: auto;
-	  margin-right: auto;
-	  width: 25%;
-	  height: 4%;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 18%;
+		height: 4%;
 	}
 	
 	.greenImgCenter {
-	  display: block;
-	  margin-left: auto;
-	  margin-right: auto;
-	  width: 21%;
-	  height: 7%;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 16%;
+		height: 8%;
 	}
-
+	
 	.center {
-      
-      margin: 0 auto;
-      marging-top: 5%;
-      
-    }
+		margin: 0 auto;
+		marging-top: 5%;
+	}
+	
+	.awesome {
+			font-family: futura;
+			font-style: italic;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: #313131;
+			font-size: 25px;
+			font-weight: bold;
+			position: absolute;
+			-webkit-animation: colorchange 20s infinite alternate;
+		}
 
-    .awesome {
-      
-      font-family: futura;
-      font-style: italic;
-      
-      width:100%;
-      
-      margin: 0 auto;
-      text-align: center;
-      
-      color:#313131;
-      font-size:25px;
-      font-weight: bold;
-      position: absolute;
-      -webkit-animation:colorchange 20s infinite alternate;
-      
-      
-    }
-
-    @-webkit-keyframes colorchange {
+@-webkit-keyframes colorchange {
       0% {
         
         color: blue;
@@ -121,3 +92,21 @@ table.dataTable thead .sorting_desc_disabled:before {
         color: pink;
       }
     }
+    
+	.imeiConfMargin {
+		margin-left: 12%;
+	}
+	
+	.btnRight {
+		float: right;
+	}
+	
+	.toolbarText {
+		font-weight: bolder;
+   	    text-align: center;
+   	    min-height: 50px;
+   	    padding-top: 10px;
+   	    
+	}
+	
+	
