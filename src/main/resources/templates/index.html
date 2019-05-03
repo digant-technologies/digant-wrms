@@ -222,71 +222,116 @@
 	   			</md-tabs>
 	   			 <!--  -->
 	   		</md-tab>
-	   		<md-tab label="Configuration" data-ng-init="fetchDeviceInfoData(); fetchSiteIds();">
+	   		<md-tab label="Configuration" >
 	   			<md-content class="md-padding" flex="" layout-fill="">
-		   			<md-card>
+	   			 <div layout="row" layout-align="center">
+		   			<md-card class="cardSize">
 		   				<md-toolbar class="toolbarText ">IMEI Configuration</md-toolbar>
 					   	 <md-card-content class="md-padding">
-		     				 <div layout="row">
-								    <md-input-container>
-							          <label>IMEI NUMBER</label>
+		     				 <div layout="row" layout-align="center">
+		     				  <div class="col-sm-6 colCenter" >
+								    <md-input-container class="dropSize">
+							          <label class="labelSize">IMEI NUMBER</label>
 							          <md-select data-ng-model="deviceImei">
 							            <md-option data-ng-repeat="device in deviceInfoData" data-ng-value="device.imei">
 							              {{device.imei}}
 							            </md-option>
 							          </md-select>
 							        </md-input-container>
-							        <md-input-container class="imeiConfMargin">
-							          <label>SITE ID</label>
+							        <md-input-container style="margin-top: 15%;" >
+								          <label class="labelSize">SITE NAME</label>
+								          <input data-ng-model="sitename" >
+								        </md-input-container >
+							         </div>
+							        <div class="col-sm-6 colCenter">
+							        <md-input-container >
+							          <label class="labelSize">SITE ID</label>
 							          <input data-ng-model="siteId">
 							        </md-input-container >
-							        <md-input-container class="imeiConfMargin" >
-							          <label>SITE NAME</label>
-							          <input data-ng-model="sitename" >
-							        </md-input-container >
-							        <md-input-container class="imeiConfMargin">
-							          <label>CIRCLE NAME</label>
-							          <input data-ng-model="circleName" >
-							        </md-input-container>				        
+								        
+								        <md-input-container >
+								          <label class="labelSize">CIRCLE NAME</label>
+								          <input data-ng-model="circleName" >
+								        </md-input-container>	
+							        </div>			        
 				      	 	 </div>
-				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateImeiConfig(data)" >Save</md-button>
+				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="confirmConfiguration()" >Save</md-button>
 				        </md-card-content>
 					 </md-card>
+					 </div>
 					 
-					 <md-card style="margin-top: 2%;">
-		   				<md-toolbar class="toolbarText ">Alarm Configuration</md-toolbar>
-		   			
-					    <md-card-content class="md-padding">
-		     				 <div layout="row">
-							    <md-input-container>
-						          <label>SITE IDS</label>
-						          <md-select data-ng-model="siteIds">
-						            <md-option data-ng-repeat="siteIds in siteIdsData" data-ng-value="siteIds.siteId">
-						              {{siteIds.siteId}}
-						            </md-option>
-						          </md-select>
-						        </md-input-container>
-						        <md-input-container class="imeiConfMargin">
-						        <label>ALARMS</label>
-						         <md-select data-ng-model="ALARM"  >
-							          <md-option value="DI09">DI09</md-option>
-							          <md-option value="DI10">DI10</md-option>
-							          <md-option value="DI11">DI11</md-option>
-							          <md-option value="DI12">DI12</md-option>
-							          <md-option value="DI13">DI13</md-option>
-							          <md-option value="DI14">DI14</md-option>
-							          <md-option value="DI15">DI15</md-option>
-							          <md-option value="DI16">DI16</md-option>
-						        </md-select>
-						        </md-input-container >
-						        <md-input-container class="imeiConfMargin" >
-						          <label>USER DEFINABLE</label>
-						          <input data-ng-model="sitename" data-ng-change="siteNameFunction(sitename)">
-						        </md-input-container >
-				      	  </div>
-				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateImeiConfig(data)" >Save</md-button>
-				        </md-card-content>
-					 </md-card>
+					 <div layout="row" layout-align="center">
+						 <md-card class="cardSize" style="margin-top: 2%;">
+			   				<md-toolbar class="toolbarText ">Alarm Configuration</md-toolbar>
+			   			
+						    <md-card-content class="md-padding">
+						    	<div layout="row" layout-align="center">
+		     				  		<div class="col-sm-6 colCenter" >
+				     				   <md-input-container  class="dropSize">
+								          <label class="labelSize">SITE IDS</label>
+								          <md-select data-ng-model="siteIds">
+								            <md-option data-ng-repeat="siteIds in siteIdsData" data-ng-value="siteIds.siteId">
+								              {{siteIds.siteId}}
+								            </md-option>
+								          </md-select>
+								        </md-input-container>
+								       
+							        </div>
+							        <div class="col-sm-6 colCenter" >
+								         <md-input-container  class="dropSize">
+									        <label class="labelSize">ALARMS</label>
+									         <md-select data-ng-model="alarm"  >
+										          <md-option value="DI09">DI09</md-option>
+										          <md-option value="DI10">DI10</md-option>
+										          <md-option value="DI11">DI11</md-option>
+										          <md-option value="DI12">DI12</md-option>
+										          <md-option value="DI13">DI13</md-option>
+										          <md-option value="DI14">DI14</md-option>
+										          <md-option value="DI15">DI15</md-option>
+										          <md-option value="DI16">DI16</md-option>
+									        </md-select>
+								        </md-input-container >
+							        </div>
+					      	  </div>
+					      	  <div class="colCenter">
+					      	  	 <md-input-container >
+								          <label class="labelSize">USER DEFINABLE</label>
+								          <input data-ng-model="alarmName" data-ng-change="siteNameFunction(sitename)">
+								  </md-input-container >
+					      	  </div>
+					      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateAlarmConfig()" >Save</md-button>
+					      	   <md-button class="md-primary md-raised" ng-click="openImeiConfigDialog($event)" >
+							      Tab Dialog
+							    </md-button>
+					        </md-card-content>
+						 </md-card>
+					 </div>
+					  <div layout="row" layout-align="center">
+				   			<md-card class="cardSize">
+				   				<md-toolbar class="toolbarText ">Tamper Configuration</md-toolbar>
+							   	 <md-card-content class="md-padding">
+				     				 <div layout="row" layout-align="center">
+				     				  <div class="col-sm-6 colCenter" >
+										    <md-input-container class="dropSize">
+									          <label class="labelSize">SITE ID</label>
+									          <md-select data-ng-model="tamperSiteIds">
+									            <md-option data-ng-repeat="siteIds in siteIdsData" data-ng-value="siteIds.siteId">
+									              {{siteIds.siteId}}
+									            </md-option>
+									          </md-select>
+									        </md-input-container>
+									   </div>
+									   <div class="col-sm-6 colCenter" >
+									        <md-input-container  >
+									          <label class="labelSize">ALARM NAME</label>
+									          <input data-ng-model="tamperAlarmName" >
+										    </md-input-container >
+		 					           </div>
+						      	 	 </div>
+						      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateTamperConfig()" >Save</md-button>
+						        </md-card-content>
+							 </md-card>
+					 </div>
 				</md-content>
    		</md-tab>
 	   </md-tabs>

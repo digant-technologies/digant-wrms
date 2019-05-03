@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.digant.technologies.wrms.dao.Alarm;
+import com.digant.technologies.wrms.dao.AlarmConfig;
 import com.digant.technologies.wrms.dao.ImeiConfig;
+import com.digant.technologies.wrms.dao.TamperConfig;
 import com.digant.technologies.wrms.service.AlarmService;
 import com.digant.technologies.wrms.utils.DigantConstants;
 
@@ -74,6 +76,42 @@ public class AlarmController {
 			logger.info(DigantConstants.Exiting + new Object() {
 			}.getClass().getEnclosingMethod().getName());
 			return new ResponseEntity<List<ImeiConfig>>(fetchSiteid, HttpStatus.OK);
+		} catch (Exception exception) {
+			logger.error(DigantConstants.EXCEPTION_IN + new Object() {
+			}.getClass().getEnclosingMethod().getName(), exception);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
+	}
+	
+	@PostMapping(value = "/alarm/config")
+	public ResponseEntity<?> updateAlarmConfig(@RequestBody AlarmConfig alarmConfig){
+		try {
+			logger.info(DigantConstants.Entered + new Object() {
+			}.getClass().getEnclosingMethod().getName());
+
+			AlarmConfig alarmConfiguration = alarmService.updateAlarmConfig(alarmConfig);
+
+			logger.info(DigantConstants.Exiting + new Object() {
+			}.getClass().getEnclosingMethod().getName());
+			return new ResponseEntity<AlarmConfig>(alarmConfiguration, HttpStatus.OK);
+		} catch (Exception exception) {
+			logger.error(DigantConstants.EXCEPTION_IN + new Object() {
+			}.getClass().getEnclosingMethod().getName(), exception);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
+	}
+	
+	@PostMapping(value = "/tamper/config")
+	public ResponseEntity<?> updateTamperConfig(@RequestBody TamperConfig tamperConfig){
+		try {
+			logger.info(DigantConstants.Entered + new Object() {
+			}.getClass().getEnclosingMethod().getName());
+
+			TamperConfig tamperConfiguration = alarmService.updateTamperConfig(tamperConfig);
+
+			logger.info(DigantConstants.Exiting + new Object() {
+			}.getClass().getEnclosingMethod().getName());
+			return new ResponseEntity<TamperConfig>(tamperConfiguration, HttpStatus.OK);
 		} catch (Exception exception) {
 			logger.error(DigantConstants.EXCEPTION_IN + new Object() {
 			}.getClass().getEnclosingMethod().getName(), exception);

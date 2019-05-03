@@ -1,0 +1,30 @@
+	<md-dialog>
+				<md-card>
+		   				<md-toolbar class="toolbarText ">IMEI Configuration</md-toolbar>
+					   	 <md-card-content class="md-padding">
+		     				 <div layout="row">
+								    <md-input-container>
+							          <label class="labelSize">IMEI NUMBER</label>
+							          <md-select data-ng-model="deviceImei">
+							            <md-option data-ng-repeat="device in deviceInfoData" data-ng-value="device.imei">
+							              {{device.imei}}
+							            </md-option>
+							          </md-select>
+							        </md-input-container>
+							        <md-input-container class="imeiConfMargin">
+							          <label class="labelSize">SITE ID</label>
+							          <input data-ng-model="siteId">
+							        </md-input-container >
+							        <md-input-container class="imeiConfMargin" >
+							          <label class="labelSize">SITE NAME</label>
+							          <input data-ng-model="sitename" >
+							        </md-input-container >
+							        <md-input-container class="imeiConfMargin">
+							          <label class="labelSize">CIRCLE NAME</label>
+							          <input data-ng-model="circleName" >
+							        </md-input-container>				        
+				      	 	 </div>
+				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateImeiConfig()" >Save</md-button>
+				        </md-card-content>
+					 </md-card>
+	</md-dialog>

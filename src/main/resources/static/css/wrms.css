@@ -109,4 +109,20 @@
    	    
 	}
 	
+	.labelSize {
+	 	font-weight: 500;
+	}
+	
+	.dropSize {
+		width: 15vw;
+	}
+	
+	.colCenter {
+		text-align : center;
+	}
+	
+	.cardSize {
+		width: 52vw;
+	}
+	
 	

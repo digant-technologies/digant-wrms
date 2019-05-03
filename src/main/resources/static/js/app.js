@@ -4,7 +4,7 @@ var digantApp = angular.module('digantApp', [ 'ngRoute', 'ngMaterial',
 
 
 
-digantApp.controller('wrmsController', function($scope, $http, $rootScope, $timeout) {
+digantApp.controller('wrmsController', function($scope, $http, $rootScope, $timeout, $mdDialog) {
 	
 	
 					$scope.imei = new Array();
@@ -16,6 +16,7 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 					$scope.amChartsMainArray = new Array(); 
 					$scope.deviceImei = '';
 					$scope.siteIds = '';
+					$scope.tamperSiteIds = '';
 					
 					
 					
@@ -271,15 +272,75 @@ digantApp.controller('wrmsController', function($scope, $http, $rootScope, $time
 							$scope.siteIdsData = response.data;
 							
 						}, function(error) {
-							console.log("error in imei config");
+							console.log("error in fetching siteIds");
 						})
 					}
+					
+					$scope.updateAlarmConfig = function(){
+						$http({
+							method : 'POST',
+							url : '/digant/wrms/alarm/config',
+							data: {
+								"siteId" : $scope.siteIds,
+								"alarms" : $scope.alarm,
+								"alarmName" : $scope.alarmName
+								}
+						}).then(function(response) { 
+							
+						}, function(error) {
+							console.log("error in alarm config");
+						})
+					}
+					
+					$scope.updateTamperConfig = function(){
+						$http({
+							method : 'POST',
+							url : '/digant/wrms/alarm/config',
+							data: {
+								"siteId" : $scope.tamperSiteIds,
+								"alaramName" : $scope.tamperAlarmName
+								
+								}
+						}).then(function(response) { 
+													
+						}, function(error) {
+							console.log("error in tamper config");
+						})
+					}
+					
 				
+					$rootScope.imeiConfigDialogController = function($scope, $mdDialog){
+						
+				
+						
+					}
+					
+					$scope.openImeiConfigDialog = function(ev) {
+						$mdDialog.show({
+							controller : $rootScope.imeiConfigDialogController,
+							templateUrl : '/fragment/imeiConfig.html',
+							parent : angular.element(document.body),
+							targetEvent : ev,
+							clickOutsideToClose : true
+						});
+					}
 					
 					
-					
-					
-			          
+					 $scope.confirmConfiguration = function(progressItem){
+							var confirm = $mdDialog.confirm()
+					        .title('Alert')
+					        .textContent('Do you really want to save ?')
+					        .ok('yes')
+					        .cancel('no');
+							$mdDialog.show(confirm).then(function() {
+								$scope.updateImeiConfig();
+								return  true;
+							}, function() {
+								
+								return false;
+							});
+							
+						}
 			         
 					
 				
