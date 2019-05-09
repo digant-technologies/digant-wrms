@@ -56,23 +56,14 @@
 			</nav>
 	   
 	     <md-tabs  flex layout="column" style="background-color: lavender;" layout-fill>
-	   		<md-tab label="Home" data-ng-init="fetchDeviceInfoData(); fetchSiteIds();">
-	   			<md-content class="md-padding" flex="" layout-fill="">
-	   			 <!-- <div id="container" style="width: 400px; height: 120px;"></div>  -->
-				</md-content>
-   			</md-tab>
-   		<!--  <md-tab label="Home" data-ng-init="fetchDeviceInfoData()">
-   			<md-content flex="" layout-fill="">
-   			<div id="chartdiv"></div>
-   			</md-content>
-   		</md-tab>  -->
+	   		
 	   			
 	   		
-	   		<md-tab label="summary" flex layout="column">
+	   		<md-tab label="home" flex layout="column"  data-ng-init="fetchDeviceInfoData(); fetchSiteIds();">
 	   			<md-tabs flex="" layout-fill="" style="background-color: aliceblue;">
-	   				<md-tab label="Alarm" data-ng-init="fetchAlarmData()" >
-	   					<md-content class="md-padding" flex="" layout-fill="">
-	   						<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">ALARM TABLE</div>
+	   				<md-tab label="summary" data-ng-init="fetchFullSIteInfo()" >
+	   					<md-content  flex="" layout-fill="">
+	   						<!-- <div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">ALARM TABLE</div> -->
 	   						 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
       							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
    							 </div>
@@ -81,70 +72,81 @@
 						     </div>
 						     
 						     	
-					   			 <table id="alarmTable" data-ng-if="!isLoading" class="table table-striped table-bordered" style="background-color: rgba(189, 239, 191, 0.26);" cellspacing="0" width="50%">
+					   			 <table id="alarmTable" data-ng-if="!isLoading" class="table table-striped table-bordered" style="margin-top: 1%; background-color: rgba(189, 239, 191, 0.26);" cellspacing="0" width="10%">
 										<thead style="background-color: #14688aa6; color: aliceblue;">
 											<tr>
-												<th class="th-sm" title="IMEI Number">IMEI</th>
-												<th class="th-sm" title="R PHASE">RP</th>
-												<th class="th-sm" title="Y PHASE">YP</th>
-												<th class="th-sm" title="B PHASE">BP</th>
-												<th class="th-sm" title="DG ON">DGO</th>
-												<th class="th-sm" title="DG ON LOAD">DGOL</th>
-												<th class="th-sm" title="DG BATTERY LOW">DGBL</th>
-												<th class="th-sm" title="LOW FUEL">LF</th>
-												<th class="th-sm" title="NO FUEL">NF</th>
-												<th class="th-sm" title="DOOR OPEN">DO</th>
-												<th class="th-sm" title="FIRE AND SMOKE">FS</th>
-												<th class="th-sm" title="SPARE 1">DI11</th>
-												<th class="th-sm" title="SPARE 2">DI12</th>
-												<th class="th-sm" title="SPARE 3">DI13</th>
-												<th class="th-sm" title="SPARE 4">DI14</th>
-												<th class="th-sm" title="SPARE 5">DI15</th>
-												<th class="th-sm" title="SPARE 6">DI16</th>
-												<th class="th-sm" title="TAMPER">TAMPER</th>
-												<th class="th-sm" title="DATA TIME">DATA TIME</th>
-												<th class="th-sm" title="INSERT TIME">INSERT TIME</th>
+												<th class="thWidth" title="SIGNAL STRENGTH">N/W</th>
+												<th class="thWidth" title="DEVICE STATUS">STATUS</th>
+												<th class="thWidth" title="SITE ID">SI</th>
+												 <th class="thWidth" title="SITE NAME">SN</th>
+												 <th class="thWidth" title="CIRCLE NAME">C</th>
+												 <th class="thWidth" title="R PHASE">RP</th>
+												<!-- <th style="text-align: center;  
+												 width: 31px;" rowspan="1" colspan="1">Circle</th> -->
+												<th class="thWidth" title="Y PHASE">YP</th>
+												<th class="thWidth" title="B PHASE">BP</th>
+												<th class="thWidth" title="DG ON">DGO</th>
+												<th class="thWidth" title="DG ON LOAD">DGOL</th>
+												<th class="thWidth" title="DG BATTERY LOW">DGBL</th>
+												<th class="thWidth" title="LOW FUEL">LF</th>
+												<th class="thWidth" title="NO FUEL">NF</th>
+												<th class="thWidth" title="DOOR OPEN">DO</th>
+												<th class="thWidth" title="FIRE AND SMOKE">FS</th>
+												<th class="thWidth" title="SPARE 1">DI11</th>
+												<th class="thWidth" title="SPARE 2">DI12</th>
+												<th class="thWidth" title="SPARE 3">DI13</th>
+												<th class="thWidth" title="SPARE 4">DI14</th>
+												<th class="thWidth" title="SPARE 5">DI15</th>
+												<th class="thWidth" title="SPARE 6">DI16</th>
+												<th class="thWidth" title="BB volt">VOLT</th>
+												<th class="thWidth" title="ROOM TEMPERATURE IN &#8451;">TEMP</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr data-ng-repeat="alarm in alarmData">
-												<td>{{alarm.imei}}</td>								
- 												<td data-ng-if="alarm.di01"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di01"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di02"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di02"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di03"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di03"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di04"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di04"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di05"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di05"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di06"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di06"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di07"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di07"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di08"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di08"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di09"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di09"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di10"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di10"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di11"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di11"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di12"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di12"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di13"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di13"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di14"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di14"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di15"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di15"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.di16"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.di16"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
- 												<td data-ng-if="alarm.tamper"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
- 												<td data-ng-if="!alarm.tamper"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
-												<td>{{alarm.dataTime}}</td>
-												<td>{{alarm.insertTime}}</td>
+											<tr data-ng-repeat="site in fullSiteInfo">
+												<td class="colHeight meter" title="{{site[24]}}%"><meter  max="31"  value="{{site[24]}}" >100%</meter></td>
+												<td data-ng-if="(date | date:'dd/MM/yyyy') == (site[23] | date:'dd/MM/yyyy')"
+												 class="colHeight" title="{{site[23] | date:'M/d/yy h:mm a'}}"><img class="thumbsUpSize" alt="" src="../images/thumsUp.png" /></td>
+												 <td   data-ng-if="!((date | date:'dd/MM/yyyy') == (site[23] | date:'dd/MM/yyyy'))"
+												 class="colHeight" title="{{site[23] | date:'M/d/yy h:mm a'}}"><img  class="thumbsDownSize" alt="" src="../images/thumbsDown.png"  /></td>
+												<td class="colHeight">{{site[19]}}</td>
+												<td class="colHeight">{{site[20]}}</td>
+												<td class="colHeight">{{site[21]}}</td>							
+ 												<td data-ng-if="site[1]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[1]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[2]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[2]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[3]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[3]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[4]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[4]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[5]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterDgl" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[5]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[6]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[6]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[7]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[7]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[8]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[8]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[9]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[9]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[10]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[10]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[11]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenterAlD" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[11]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[12]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[12]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[13]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[13]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[14]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[14]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[15]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[15]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+ 												<td data-ng-if="site[16]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="redImgCenter" alt="" src="../images/redAlarm.png" /></td>
+ 												<td data-ng-if="!site[16]" title="{{site[25] | date:'M/d/yy h:mm a'}}"> <img class="greenImgCenter" alt="" src="../images/greenAlarm.png" /></td>
+												<td class="colHeight">{{site[17]}}</td>
+												<td class="colHeight">{{site[18]}}&#8451;</td>
+												
 											</tr>
 										</tbody>
 								 </table>
@@ -153,7 +155,7 @@
 	   				</md-tab>
 	   				<md-tab label="DC Load" data-ng-init="fetchDcLoadData()">
 		   				<md-content class="md-padding" flex="" layout-fill="">
-			   				<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">DC LOAD TABLE</div>
+			   				<!-- <div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">DC LOAD TABLE</div> -->
 			   				 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
       							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
    							 </div>
@@ -164,7 +166,7 @@
 								  <thead style="background-color: #14688aa6; color: aliceblue;">
 								    <tr>
 								      <th class="th-sm">IMEI</th>
-								      <th class="th-sm" title="	DC LOAD 1">Ld1</th>
+								      <th class="th-sm" title="	DC LOAD 1">LD1</th>
 								      <th class="th-sm" title=" DC LOAD 2">LD2</th>
 								      <th class="th-sm" title=" DC LOAD 3">LD3</th>
 								      <th class="th-sm" title=" DC LOAD 4">LD4</th>
@@ -192,7 +194,7 @@
 	   				</md-tab>
 	   				<md-tab label="Temperature" data-ng-init="fetchTemperatureData()">
 			   			<md-content class="md-padding" flex="" layout-fill="">
-				   			<div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">TEMPERATURE TABLE</div>
+				   			<!-- <div data-ng-if="!isLoading" style="font-weight: bold; font-size: larger;">TEMPERATURE TABLE</div> -->
 				   			 <div style="margin-top: 10%;" data-ng-show="isLoading" layout="row" layout-sm="column" layout-align="space-around">
       							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
    							 </div>
@@ -203,7 +205,7 @@
 								  <thead style="background-color: #14688aa6; color: aliceblue;">
 								    <tr>
 								      <th class="th-sm" title="IMEI NUMBER">IMEI</th>
-								      <th class="th-sm" title="ROOM TEMP IN DegreeC">ROOM TEMP</th>
+								      <th class="th-sm" title="ROOM TEMP IN &#8451;">ROOM TEMP</th>
 								      <th class="th-sm" title="DATA TIME">DATA TIME</th>
 								      <th class="th-sm" title="INSERT TIME">INSERT TIME</th>
 								    </tr>
@@ -211,7 +213,7 @@
 								  <tbody>
 								    <tr data-ng-repeat="temp in temperatureData">
 								      <td>{{temp.imei}}</td>
-								      <td>{{temp.degreeC}}</td>
+								      <td>{{temp.degreeC}}</td>						      
 								      <td>{{temp.dataTime}}</td>
 								      <td>{{temp.insertTime}}</td>
 								   	 </tr>
@@ -225,6 +227,7 @@
 	   		<md-tab label="Configuration" >
 	   			<md-content class="md-padding" flex="" layout-fill="">
 	   			 <div layout="row" layout-align="center">
+	   			 
 		   			<md-card class="cardSize">
 		   				<md-toolbar class="toolbarText ">IMEI Configuration</md-toolbar>
 					   	 <md-card-content class="md-padding">
@@ -242,6 +245,7 @@
 								          <label class="labelSize">SITE NAME</label>
 								          <input data-ng-model="sitename" >
 								        </md-input-container >
+								        
 							         </div>
 							        <div class="col-sm-6 colCenter">
 							        <md-input-container >
@@ -249,10 +253,11 @@
 							          <input data-ng-model="siteId">
 							        </md-input-container >
 								        
-								        <md-input-container >
+								        <md-input-container style="margin-top: 9%;">
 								          <label class="labelSize">CIRCLE NAME</label>
 								          <input data-ng-model="circleName" >
 								        </md-input-container>	
+								       
 							        </div>			        
 				      	 	 </div>
 				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="confirmConfiguration()" >Save</md-button>
@@ -260,80 +265,10 @@
 					 </md-card>
 					 </div>
 					 
-					 <div layout="row" layout-align="center">
-						 <md-card class="cardSize" style="margin-top: 2%;">
-			   				<md-toolbar class="toolbarText ">Alarm Configuration</md-toolbar>
-			   			
-						    <md-card-content class="md-padding">
-						    	<div layout="row" layout-align="center">
-		     				  		<div class="col-sm-6 colCenter" >
-				     				   <md-input-container  class="dropSize">
-								          <label class="labelSize">SITE IDS</label>
-								          <md-select data-ng-model="siteIds">
-								            <md-option data-ng-repeat="siteIds in siteIdsData" data-ng-value="siteIds.siteId">
-								              {{siteIds.siteId}}
-								            </md-option>
-								          </md-select>
-								        </md-input-container>
-								       
-							        </div>
-							        <div class="col-sm-6 colCenter" >
-								         <md-input-container  class="dropSize">
-									        <label class="labelSize">ALARMS</label>
-									         <md-select data-ng-model="alarm"  >
-										          <md-option value="DI09">DI09</md-option>
-										          <md-option value="DI10">DI10</md-option>
-										          <md-option value="DI11">DI11</md-option>
-										          <md-option value="DI12">DI12</md-option>
-										          <md-option value="DI13">DI13</md-option>
-										          <md-option value="DI14">DI14</md-option>
-										          <md-option value="DI15">DI15</md-option>
-										          <md-option value="DI16">DI16</md-option>
-									        </md-select>
-								        </md-input-container >
-							        </div>
-					      	  </div>
-					      	  <div class="colCenter">
-					      	  	 <md-input-container >
-								          <label class="labelSize">USER DEFINABLE</label>
-								          <input data-ng-model="alarmName" data-ng-change="siteNameFunction(sitename)">
-								  </md-input-container >
-					      	  </div>
-					      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateAlarmConfig()" >Save</md-button>
-					      	   <md-button class="md-primary md-raised" ng-click="openImeiConfigDialog($event)" >
-							      Tab Dialog
-							    </md-button>
-					        </md-card-content>
-						 </md-card>
-					 </div>
-					  <div layout="row" layout-align="center">
-				   			<md-card class="cardSize">
-				   				<md-toolbar class="toolbarText ">Tamper Configuration</md-toolbar>
-							   	 <md-card-content class="md-padding">
-				     				 <div layout="row" layout-align="center">
-				     				  <div class="col-sm-6 colCenter" >
-										    <md-input-container class="dropSize">
-									          <label class="labelSize">SITE ID</label>
-									          <md-select data-ng-model="tamperSiteIds">
-									            <md-option data-ng-repeat="siteIds in siteIdsData" data-ng-value="siteIds.siteId">
-									              {{siteIds.siteId}}
-									            </md-option>
-									          </md-select>
-									        </md-input-container>
-									   </div>
-									   <div class="col-sm-6 colCenter" >
-									        <md-input-container  >
-									          <label class="labelSize">ALARM NAME</label>
-									          <input data-ng-model="tamperAlarmName" >
-										    </md-input-container >
-		 					           </div>
-						      	 	 </div>
-						      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateTamperConfig()" >Save</md-button>
-						        </md-card-content>
-							 </md-card>
-					 </div>
+					
 				</md-content>
    		</md-tab>
+   	
 	   </md-tabs>
 	  
 			<!-- <script

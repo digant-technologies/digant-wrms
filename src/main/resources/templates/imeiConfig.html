@@ -1,9 +1,20 @@
-	<md-dialog>
-				<md-card>
-		   				<md-toolbar class="toolbarText ">IMEI Configuration</md-toolbar>
-					   	 <md-card-content class="md-padding">
-		     				 <div layout="row">
-								    <md-input-container>
+<md-dialog>	
+	<md-card class="cardSize" data-ng-init="fetchDeviceInfoData();">
+		   				<md-toolbar >
+			   				<div class="md-toolbar-tools">
+						        <h2 class="toolbarText ">IMEI Configuration</h2>
+						        <span flex></span>
+						        <md-button class="md-icon-button" ng-click="cancel()"><b>X</b>
+						       <!--  <img alt="" src="..static/images/error.png" aria-label="Close dialog" /> -->
+						        
+						          <!-- <md-icon md-svg-src="..images/error.svg" aria-label="Close dialog"></md-icon> -->
+						        </md-button>
+						      </div>
+		   				</md-toolbar>
+					   	 <md-card-content class="md-padding" data-ng-init="fetchDeviceInfoData();">
+		     				 <div layout="row" layout-align="center">
+		     				  <div class="col-sm-6 colCenter" >
+								    <md-input-container class="dropSize" data-ng-click="fetchDeviceInfoData();">
 							          <label class="labelSize">IMEI NUMBER</label>
 							          <md-select data-ng-model="deviceImei">
 							            <md-option data-ng-repeat="device in deviceInfoData" data-ng-value="device.imei">
@@ -11,20 +22,43 @@
 							            </md-option>
 							          </md-select>
 							        </md-input-container>
-							        <md-input-container class="imeiConfMargin">
-							          <label class="labelSize">SITE ID</label>
-							          <input data-ng-model="siteId">
-							        </md-input-container >
-							        <md-input-container class="imeiConfMargin" >
-							          <label class="labelSize">SITE NAME</label>
-							          <input data-ng-model="sitename" >
-							        </md-input-container >
-							        <md-input-container class="imeiConfMargin">
-							          <label class="labelSize">CIRCLE NAME</label>
-							          <input data-ng-model="circleName" >
-							        </md-input-container>				        
+							        <md-input-container style="margin-top: 15%;" >
+								          <label class="labelSize">SITE NAME</label>
+								          <input data-ng-model="sitename" >
+								        </md-input-container >
+								        <md-input-container  class="dropSize">
+									        <label class="labelSize">ALARMS</label>
+									         <md-select data-ng-model="alarm"  >
+										          <md-option value="DI09">DI09</md-option>
+										          <md-option value="DI10">DI10</md-option>
+										          <md-option value="DI11">DI11</md-option>
+										          <md-option value="DI12">DI12</md-option>
+										          <md-option value="DI13">DI13</md-option>
+										          <md-option value="DI14">DI14</md-option>
+										          <md-option value="DI15">DI15</md-option>
+										          <md-option value="DI16">DI16</md-option>
+									        </md-select>
+								        </md-input-container >
+							         </div>
+							        <div class="col-sm-6 colCenter">
+								        <md-input-container >
+								          <label class="labelSize">SITE ID</label>
+								          <input data-ng-model="siteId">
+								        </md-input-container >
+								        
+								        <md-input-container >
+								          <label class="labelSize">CIRCLE NAME</label>
+								          <input data-ng-model="circleName" >
+								        </md-input-container>	
+								        <md-input-container >
+								          <label class="labelSize">USER DEFINABLE</label>
+								          <input data-ng-model="alarmName">
+								  		</md-input-container >
+							        </div>			        
 				      	 	 </div>
-				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="updateImeiConfig()" >Save</md-button>
+				      	  <md-button class="md-raised md-primary btnRight" data-ng-click="confirmConfiguration()" >Save</md-button>
 				        </md-card-content>
 					 </md-card>
-	</md-dialog>
+	</md-dialog>					 
+						 
+						 

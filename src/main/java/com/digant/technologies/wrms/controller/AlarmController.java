@@ -119,6 +119,24 @@ public class AlarmController {
 		}		
 	}
 	
+	@GetMapping(value = "/fetch/siteInfo")
+	public ResponseEntity<?> fetchFullSiteInfo() {
+		try {
+			logger.info(DigantConstants.Entered + new Object() {
+			}.getClass().getEnclosingMethod().getName());
+
+			List<Object[]>  obj = alarmService.fetchFullSiteInfo(null);
+
+			logger.info(DigantConstants.Exiting + new Object() {
+			}.getClass().getEnclosingMethod().getName());
+			return new ResponseEntity<List<Object[]>>(obj, HttpStatus.OK);
+		} catch (Exception exception) {
+			logger.error(DigantConstants.EXCEPTION_IN + new Object() {
+			}.getClass().getEnclosingMethod().getName(), exception);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	
 
 }

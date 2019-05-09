@@ -1,4 +1,4 @@
-package com.digant.technologies.wrms.controller;
+/*package com.digant.technologies.wrms.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +12,8 @@ public class WebController {
         return "index";
     }
     
-/*    @RequestMapping("/digant")
+    @RequestMapping("/digant")
     public String greeting() {
         return "greeting";
-    }*/
-}
+    }
+}*/

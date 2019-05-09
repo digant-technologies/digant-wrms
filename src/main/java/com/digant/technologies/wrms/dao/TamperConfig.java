@@ -21,6 +21,7 @@ public class TamperConfig {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	public Integer getId() {
 		return id;
 	}

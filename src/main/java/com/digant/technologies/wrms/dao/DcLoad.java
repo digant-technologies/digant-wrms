@@ -27,6 +27,7 @@ public class DcLoad {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}

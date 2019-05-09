@@ -1,4 +1,4 @@
-package com.digant.technologies.view.controllers;
+package com.digant.technologies.wrms.view.controllers;
 
 import javax.servlet.http.HttpServletResponse;
 

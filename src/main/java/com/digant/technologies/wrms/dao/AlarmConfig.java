@@ -22,6 +22,7 @@ public class AlarmConfig {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	public Integer getId() {
 		return id;
 	}

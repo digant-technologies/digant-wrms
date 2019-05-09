@@ -23,6 +23,7 @@ public class ImeiConfig {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	public Integer getId() {
 		return id;
 	}
@@ -66,7 +67,8 @@ public class ImeiConfig {
 	public void setCircleName(String circleName) {
 		this.circleName = circleName;
 	}
-	
+
+
 	@Column(name = "timestamp")
 	public Timestamp getTimestamp() {
 		return timestamp;

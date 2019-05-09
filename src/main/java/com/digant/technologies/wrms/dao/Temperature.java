@@ -24,6 +24,7 @@ public class Temperature {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id")
 	public BigInteger getId() {
 		return id;
 	}

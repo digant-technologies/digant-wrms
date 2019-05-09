@@ -53,5 +53,11 @@ public class AlarmService {
 
 		return tamperConfigRepo.save(tamperConfig);
 	}
+	
+
+	public List<Object[]> fetchFullSiteInfo(String name) {
+		
+		return  alarmRepo.findAll(name);
+	}
 
 }
