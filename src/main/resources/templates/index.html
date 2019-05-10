@@ -97,12 +97,20 @@
 												<th class="thWidth" title="SPARE 5"><div class="colHeader">DI15</div></th>
 												<th class="thWidth" title="SPARE 6"><div class="colHeader">DI16</div></th>
 												<th class="thWidth" title="BB volt"><div class="colHeader">VOLT</div></th>
-												<th class="thWidth" title="ROOM TEMPERATURE IN &#8451;"><div class="colHeader">TEMP<div class="colHeader">	</th>
+												<th class="thWidth" title="SHELTER IN &#8451;"><div class="colHeader">TEMP<div class="colHeader">	</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr data-ng-repeat="site in fullSiteInfo">
-												<td class="colHeight meter" title="{{site[24]}}%"><meter  max="31"  value="{{site[24]}}" >100%</meter></td>
+												<td class="colHeight meter" data-ng-if="site[24] == 2 || site[24] == 3 || site[24] == 4  || site[24] == 5 || site[24] == 6 || site[24] == 7
+												|| site[24] == 8 || site[24] == 9"><meter  max="31" title="Marginal" value="{{site[24]}}" >100%</meter></td>
+												<td class="colHeight meter" data-ng-if="site[24] == 10 || site[24] == 11 || site[24] == 12  || site[24] == 13 || site[24] == 14">
+													<meter  max="31" title="Ok" value="{{site[24]}}" >100%</meter></td>
+												<td class="colHeight meter" data-ng-if="site[24] == 15 || site[24] == 16 || site[24] == 17  || site[24] == 18 || site[24] == 19">
+													<meter  max="31" title="GOOD" value="{{site[24]}}" >100%</meter></td>
+												<td class="colHeight meter" data-ng-if="site[24] == 20 || site[24] == 21 || site[24] == 22  || site[24] == 23 || site[24] == 24 || site[24] == 25
+												|| site[24] == 26 || site[24] == 27 || site[24] == 28 || site[24] == 29 || site[24] == 30 || site[24] == 31">
+													<meter  max="31" title="EXCELLENT" value="{{site[24]}}" >100%</meter></td>
 												<td data-ng-if="(date | date:'dd/MM/yyyy') == (site[23] | date:'dd/MM/yyyy')"
 												 class="colHeight" title="{{site[23] | date:'M/d/yy h:mm a'}}"><img class="thumbsUpSize" alt="" src="../images/thumsUp.png" /></td>
 												 <td   data-ng-if="!((date | date:'dd/MM/yyyy') == (site[23] | date:'dd/MM/yyyy'))"
