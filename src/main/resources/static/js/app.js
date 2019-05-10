@@ -7,6 +7,7 @@ digantApp.controller('wrmsController',
 	
 					$scope.imei = new Array();
 					$scope.isLoading = true;
+					$scope.isLoadingSummary = true;
 					$scope.tempData = new Array();
 					$scope.degreeCData = new Array();
 					$scope.finalDegree = new Array();
@@ -119,6 +120,7 @@ digantApp.controller('wrmsController',
 							url : '/digant/wrms/fetch/siteInfo',
 						}).then(function(response) { 
 							$scope.fullSiteInfo = response.data;
+							$scope.isLoadingSummary = false;
 							$(document).ready(function() {
 								 $('#alarmTable').DataTable( {   
 									 
@@ -126,7 +128,8 @@ digantApp.controller('wrmsController',
 								
 							});		
 						}, function(error) {
-							console.log("error in tamper config");
+							console.log("error in  full site info");
+							$scope.isLoadingSummary = false;
 						})
 					}
 					
@@ -160,10 +163,16 @@ digantApp.controller('wrmsController',
 								"circleName" : $scope.circleName								
 								}
 						}).then(function(response) { 
-							$scope.imeiConfigData = response.data;
-							
+							$scope.deviceImei = '';
+							$scope.siteId = '';
+							$scope.sitename = '';
+							$scope.circleName = '';
 						}, function(error) {
-							console.log("error in imei config");
+							console.log("error in update imei config");
+							$scope.deviceImei = '';
+							$scope.siteId = '';
+							$scope.sitename = '';
+							$scope.circleName = '';
 						})
 					}
 					
@@ -191,7 +200,7 @@ digantApp.controller('wrmsController',
 						}).then(function(response) { 
 													
 						}, function(error) {
-							console.log("error in tamper config");
+							console.log("error in update tamper config");
 						})
 					}
 											

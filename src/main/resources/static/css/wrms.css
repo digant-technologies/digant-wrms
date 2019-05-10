@@ -15,7 +15,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		height: 3%;
-		width: 34.9%;
+		width: 1em;
 	}
 	
 	.redImgCenterAlD {
@@ -23,7 +23,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		height: 3%;
-		width: 42.11;
+		width: 1em;
 	}
 	
 	.greenImgCenter {
@@ -31,6 +31,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		height: 6%;
+		width: 0.9em;
 	}
 	
 	.center {
@@ -141,7 +142,7 @@
 	}
 	
 	.thWidth {
-		width: 29px;
+		width: 29px !imporatant;
 		height: 10px;
    		font-size: 0.65rem;
    		vertical-align: middle !important;
@@ -177,6 +178,13 @@
    		 height: 2.5vh;
 	}
 	
+	.colHeader {
+		width :2em;
+	}
+	
+	.colHeaders {
+		width :2.5em;
+	}
 	
 	
 	
